@@ -1,18 +1,38 @@
-#!/usr/bin/env bash
-set -e
+#!/bin/bash
 
-echo "=== Atualizando pacotes ==="
-sudo apt-get update -y
-sudo apt-get install -y curl wget gnupg2 software-properties-common git openjdk-17-jre
+echo "=== Atualizando os pacotes ==="
+apt-get update -y
 
-echo "=== Instalando Node.js v20 ==="
-curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-sudo apt-get install -y nodejs
+echo "=== Instalando dependencias ==="
+apt-get install -y curl wget fontconfig openjdk-21-jre
+
+echo "=== Instalando Node.js ==="
+curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+apt-get install -y nodejs
+
+echo "=== Verificando Node.js ==="
+node --version
+npm --version
+
+echo "=== Configurando repositorio do Jenkins ==="
+mkdir -p /etc/apt/keyrings
+
+wget -O /etc/apt/keyrings/jenkins-keyring.asc \
+https://pkg.jenkins.io/debian-stable/jenkins.io-2026.key
+
+echo "deb [signed-by=/etc/apt/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/" \
+> /etc/apt/sources.list.d/jenkins.list
 
 echo "=== Instalando Jenkins ==="
-sudo wget -O /usr/share/keyrings/jenkins-keyring.asc https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
-echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/" | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
+apt-get update -y
+apt-get install -y jenkins
 
-sudo apt-get update -y
-sudo apt-get install -y jenkins
-sudo systemctl enable --now jenkins 
+echo "=== Habilitando Jenkins ==="
+systemctl enable jenkins
+systemctl start jenkins
+
+echo "=== Verificando Jenkins ==="
+systemctl status jenkins --no-pager
+
+echo "=== Provisionamento concluido ==="
+>>>>>>> d4f8743898a165f3d2be100f680faf1c2397c790

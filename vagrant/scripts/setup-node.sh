@@ -1,10 +1,20 @@
-#!/usr/bin/env bash
-set -e
+#!/bin/bash
 
-echo "=== Atualizando pacotes ==="
-sudo apt-get update -y
-sudo apt-get install -y curl wget git
+echo "=== Atualizando os pacotes ==="
+apt-get update -y
 
-echo "=== Instalando Node.js v20 ==="
-curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-sudo apt-get install -y nodejs
+echo "=== Instalando curl ==="
+apt-get install -y curl
+
+echo "=== Configurando repositorio do Node.js ==="
+curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+
+echo "=== Instalando Node.js ==="
+apt-get install -y nodejs
+
+echo "=== Verificando instalacao ==="
+node --version
+npm --version
+
+echo "=== Node.js instalado com sucesso ==="
+>>>>>>> d4f8743898a165f3d2be100f680faf1c2397c790
