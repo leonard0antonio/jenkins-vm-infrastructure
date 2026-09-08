@@ -400,6 +400,23 @@ Durante o desenvolvimento foram validados:
 - Comunicação SSH entre Jenkins e Prod
 - Acesso SSH à Prod pelo usuário de serviço do Jenkins
 - Versionamento das alterações com Git
+- Pipeline CI/CD executado com sucesso no Jenkins
+- Todos os stages (Checkout, Install, Test, Build e Deploy) concluídos com sucesso
+
+---
+
+## 📸 Evidência de execução do Pipeline
+
+<img width="1371" height="586" alt="Captura de tela 2026-09-08 044300" src="https://github.com/user-attachments/assets/2de8566d-f685-4336-a764-bee41b047f86" />
+
+O pipeline CI/CD foi executado com sucesso no Jenkins, concluindo todas as etapas configuradas:
+
+- Checkout
+- Install
+- Test
+- Build
+- Deploy
+- Post Actions
 
 ---
 
