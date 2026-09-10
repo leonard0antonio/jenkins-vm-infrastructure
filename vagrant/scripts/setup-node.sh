@@ -17,4 +17,4 @@ node --version
 npm --version
 
 echo "=== Node.js instalado com sucesso ==="
->>>>>>> d4f8743898a165f3d2be100f680faf1c2397c790
+

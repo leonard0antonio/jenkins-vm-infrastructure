@@ -35,4 +35,4 @@ echo "=== Verificando Jenkins ==="
 systemctl status jenkins --no-pager
 
 echo "=== Provisionamento concluido ==="
->>>>>>> d4f8743898a165f3d2be100f680faf1c2397c790
+
