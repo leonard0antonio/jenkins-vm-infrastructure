@@ -36,7 +36,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh '''
-                    ssh -o StrictHostKeyChecking=no vagrant@192.168.56.20 "cd /var/www/app && npm install && npm run build"
+                    ssh -o StrictHostKeyChecking=no vagrant@192.168.56.20 "cd /home/vagrant/deploy/app && npm install && npm run build"
                 '''
             }
         }
