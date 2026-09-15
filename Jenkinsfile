@@ -2,59 +2,52 @@ pipeline {
     agent any
 
     stages {
-
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
-
         stage('Install') {
             steps {
-                dir('app') {
-                    sh 'npm install'
-                }
+                echo "Instalando dependências..."
+                sh 'cd app && npm install'
             }
         }
 
         stage('Test') {
             steps {
-                dir('app') {
-                    sh 'npm test'
-                }
+                sh 'cd app && npm test'
             }
         }
 
         stage('Build') {
             steps {
-                dir('app') {
-                    sh 'npm run build'
-                }
+                sh 'cd app && npm run build'
             }
         }
 
         stage('Deploy') {
             steps {
-        sh '''
-            tar --exclude=node_modules -czf app.tar.gz -C app .
+                echo 'Enviando aplicação para a VM app...'
+                sshagent(['app']) {
+                    sh '''
+                        # Compacta os arquivos ignorando a pasta node_modules
+                        tar --exclude=node_modules -czf app.tar.gz -C app .
 
-            scp -o StrictHostKeyChecking=no \
-                app.tar.gz \
-                vagrant@192.168.56.20:/tmp/app.tar.gz
+                        # Envia o arquivo para a VM prod usando scp
+                        scp -o StrictHostKeyChecking=no \
+                            app.tar.gz \
+                            vagrant@192.168.33.20:/tmp/app.tar.gz
 
-            ssh -o StrictHostKeyChecking=no \
-                vagrant@192.168.56.20 '
-                    rm -rf /home/vagrant/deploy/app &&
-                    mkdir -p /home/vagrant/deploy/app &&
-                    tar -xzf /tmp/app.tar.gz -C /home/vagrant/deploy/app &&
-                    cd /home/vagrant/deploy/app &&
-                    npm install &&
-                    npm run build
-                '
+                        # Acessa a VM prod via SSH para descompactar e instalar dependências
+                        ssh -o StrictHostKeyChecking=no vagrant@192.168.33.20 '
+                            rm -rf /home/vagrant/app-prod &&
+                            mkdir -p /home/vagrant/app-prod &&
+                            tar -xzf /tmp/app.tar.gz -C /home/vagrant/app-prod &&
+                            cd /home/vagrant/app-prod &&
+                            npm install
+                        '
 
-            rm -f app.tar.gz
-        '''
-    }
+                        # Remove o pacote compactado na máquina do Jenkins
+                        rm -f app.tar.gz
+                    '''
+                }
+            }
         }
     }
 
