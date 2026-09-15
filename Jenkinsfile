@@ -32,7 +32,7 @@ pipeline {
                         # Envia o arquivo para a VM prod usando scp
                         scp -o StrictHostKeyChecking=no \
                             app.tar.gz \
-                            vagrant@192.168.33.20:/tmp/app.tar.gz
+                            vagrant@192.168.56.20:/tmp/app.tar.gz
 
                         # Acessa a VM prod via SSH para descompactar e instalar dependências
                         ssh -o StrictHostKeyChecking=no vagrant@192.168.56.20 '
