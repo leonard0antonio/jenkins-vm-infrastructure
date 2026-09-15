@@ -5,7 +5,6 @@ Vagrant.configure("2") do |config|
   config.vm.define "jenkins" do |jenkins|
     jenkins.vm.hostname = "jenkins"
     jenkins.vm.network "private_network", ip: "192.168.56.10"
-    #jenkins.vm.network "forwarded_port", guest: 8080, host: 8081
 
     jenkins.vm.provider "virtualbox" do |vb|
       vb.name = "vm-jenkins"
@@ -20,7 +19,6 @@ Vagrant.configure("2") do |config|
   config.vm.define "prod" do |prod|
     prod.vm.hostname = "prod"
     prod.vm.network "private_network", ip: "192.168.56.20"
-    prod.vm.synced_folder "./app", "/var/www/app", create: true
 
     prod.vm.provider "virtualbox" do |vb|
       vb.name = "vm-prod"
@@ -29,5 +27,17 @@ Vagrant.configure("2") do |config|
     end
 
     prod.vm.provision "shell", path: "vagrant/scripts/setup-node.sh"
+  end
+
+  # VM 3: Nexus
+  config.vm.define "nexus" do |nexus|
+    nexus.vm.hostname = "nexus-server"
+    nexus.vm.network "private_network", ip: "192.168.56.30"
+
+    nexus.vm.provider "virtualbox" do |v|
+      v.name = "vm-nexus"
+      v.memory = 2048
+      v.cpus = 2
+    end
   end
 end
