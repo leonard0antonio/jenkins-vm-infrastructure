@@ -35,7 +35,7 @@ pipeline {
                             vagrant@192.168.33.20:/tmp/app.tar.gz
 
                         # Acessa a VM prod via SSH para descompactar e instalar dependências
-                        ssh -o StrictHostKeyChecking=no vagrant@192.168.33.20 '
+                        ssh -o StrictHostKeyChecking=no vagrant@192.168.56.20 '
                             rm -rf /home/vagrant/app-prod &&
                             mkdir -p /home/vagrant/app-prod &&
                             tar -xzf /tmp/app.tar.gz -C /home/vagrant/app-prod &&
