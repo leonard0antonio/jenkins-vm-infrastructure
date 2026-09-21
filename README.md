@@ -1,5 +1,7 @@
 # 🚀 Infraestrutura Jenkins + Node.js com Vagrant
 
+![Demo da aplicação](demo.jpg)
+
 Projeto desenvolvido para criação automatizada de um ambiente de CI/CD utilizando **Vagrant**, **VirtualBox**, **Jenkins** e **Node.js**.
 
 A infraestrutura é composta por duas máquinas virtuais Ubuntu:
