@@ -156,7 +156,7 @@ vagrant/scripts/setup-jenkins.sh
 Após iniciar as VMs, o Jenkins pode ser acessado no navegador através de:
 
 ```text
-http://localhost:8081
+http://localhost:8008
 ```
 
 ### Obter a senha inicial do Jenkins
