@@ -29,19 +29,11 @@ pipeline {
                         # Compacta os arquivos ignorando a pasta node_modules
                         tar --exclude=node_modules -czf app.tar.gz -C app .
 
-                        # Envia o arquivo para a VM prod usando scp
-                        scp -o StrictHostKeyChecking=no \
-                            app.tar.gz \
-                            vagrant@192.168.56.20:/tmp/app.tar.gz
+                        # Envia o arquivo para a VM prod usando scp na mesma linha
+                        scp -o StrictHostKeyChecking=no app.tar.gz vagrant@192.168.56.20:/tmp/app.tar.gz
 
-                        # Acessa a VM prod via SSH para descompactar e instalar dependências
-                        ssh -o StrictHostKeyChecking=no vagrant@192.168.56.20 '
-                            rm -rf /home/vagrant/app-prod &&
-                            mkdir -p /home/vagrant/app-prod &&
-                            tar -xzf /tmp/app.tar.gz -C /home/vagrant/app-prod &&
-                            cd /home/vagrant/app-prod &&
-                            npm install
-                        '
+                        # Acessa a VM prod via SSH executando os comandos em cadeia na mesma linha
+                        ssh -o StrictHostKeyChecking=no vagrant@192.168.56.20 "rm -rf /home/vagrant/app-prod && mkdir -p /home/vagrant/app-prod && tar -xzf /tmp/app.tar.gz -C /home/vagrant/app-prod && cd /home/vagrant/app-prod && npm install"
 
                         # Remove o pacote compactado na máquina do Jenkins
                         rm -f app.tar.gz
