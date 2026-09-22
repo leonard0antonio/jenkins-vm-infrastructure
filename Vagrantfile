@@ -29,15 +29,4 @@ Vagrant.configure("2") do |config|
     prod.vm.provision "shell", path: "vagrant/scripts/setup-node.sh"
   end
 
-  # VM 3: Nexus
-  config.vm.define "nexus" do |nexus|
-    nexus.vm.hostname = "nexus-server"
-    nexus.vm.network "private_network", ip: "192.168.56.30"
-
-    nexus.vm.provider "virtualbox" do |v|
-      v.name = "vm-nexus"
-      v.memory = 2048
-      v.cpus = 2
-    end
-  end
 end

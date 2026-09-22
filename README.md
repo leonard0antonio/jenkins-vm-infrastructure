@@ -1,5 +1,7 @@
 # 🚀 Infraestrutura Jenkins + Node.js com Vagrant
 
+![Demo da aplicação](demo.jpg)
+
 Projeto desenvolvido para criação automatizada de um ambiente de CI/CD utilizando **Vagrant**, **VirtualBox**, **Jenkins** e **Node.js**.
 
 A infraestrutura é composta por duas máquinas virtuais Ubuntu:
@@ -154,7 +156,7 @@ vagrant/scripts/setup-jenkins.sh
 Após iniciar as VMs, o Jenkins pode ser acessado no navegador através de:
 
 ```text
-http://localhost:8081
+http://localhost:8008
 ```
 
 ### Obter a senha inicial do Jenkins
