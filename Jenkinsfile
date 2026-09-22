@@ -62,11 +62,8 @@ pipeline {
 
                         # Envia o arquivo para a VM prod usando scp
 
-                        scp -o StrictHostKeyChecking=no \
+                        scp -o StrictHostKeyChecking=no app.tar.gz vagrant@192.168.56.20:/tmp/app.tar.gz
 
-                            app.tar.gz \
-
-                            vagrant@192.168.56.20:/tmp/app.tar.gz
 
 
 
