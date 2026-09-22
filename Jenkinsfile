@@ -38,6 +38,7 @@ pipeline {
                         # Remove o pacote compactado na máquina do Jenkins
                         rm -f app.tar.gz
                     '''
+                    
                 }
             }
         }
